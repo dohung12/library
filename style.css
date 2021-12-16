@@ -5,11 +5,11 @@
   font-family: var(--secondary-ff);
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Quattrocento&family=Quattrocento+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Roboto&display=swap");
 
 :root {
-  --header-ff: "Quattrocento", serif;
-  --secondary-ff: "Quattrocento Sans", sans-serif;
+  --header-ff: "Libre Baskerville", serif;
+  --secondary-ff: "Roboto", sans-serif;
   --body-bg-color: #eef2ff;
   --header-bg-color: #4e5166;
   --header-color: white;
@@ -30,7 +30,7 @@ body {
 }
 
 header {
-  background-color: #e0e7ff;
+  background-color: var(--form-bg-color);
   grid-area: header;
   padding: 20px;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
@@ -63,16 +63,18 @@ h1 {
   gap: 20px;
 }
 .book {
-  margin: 20px;
-  background-color: var(--book-bg-color);
   padding: 20px;
-  font-size: 24px;
+  margin: 20px;
+  color: #075985;
+  background-color: var(--book-bg-color);
+  font-size: 20px;
+  line-height: 2;
   border: 2px solid #075985;
   border-radius: 10%;
-  color: #075985;
-  line-height: 1.5;
 }
-
+.book p {
+  text-align: center;
+}
 .btn-container {
   margin-top: 1em;
   display: flex;
@@ -105,7 +107,7 @@ h1 {
   font-size: 20px;
   color: #075985;
   border: 2px solid #075985;
-  background-color: #bae6fd;
+  background-color: #eef2ff;
   font-weight: 800;
 }
 
@@ -136,6 +138,7 @@ input[type="number"] {
 }
 .submit-btn {
   margin: 0 30%;
+  margin-top: 20px;
 }
 .hide-form {
   height: 0;
