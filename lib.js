@@ -10,15 +10,23 @@ newBookBtn.addEventListener("click", addNewBook);
 
 submitBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  const bookTitle = document.querySelector('input[name="title"]').value;
-  const bookAuthor = document.querySelector('input[name="author"]').value;
-  const bookPages = document.querySelector('input[name="pages"]').value;
-  const bookReadStt = document.querySelector(
-    'input[name="read"]:checked'
-  ).value;
+  const bookTitle = document.querySelector('input[name="title"]');
+  const bookAuthor = document.querySelector('input[name="author"]');
+  const bookPages = document.querySelector('input[name="pages"]');
+  const bookReadStt = document.querySelector('input[name="read"]:checked');
 
-  addBookToLibrary(bookTitle, bookAuthor, bookPages, bookReadStt);
+  addBookToLibrary(
+    bookTitle.value,
+    bookAuthor.value,
+    bookPages.value,
+    bookReadStt.value
+  );
   displayLibrary();
+  //remove text in input box after press submit, back to placeholder value
+  bookTitle.value = "";
+  bookAuthor.value = "";
+  bookPages.value = "";
+  document.querySelector("#read-stt-1").checked = true;
 });
 // FUNCTIONS
 function Book(title, author, pages, read) {
@@ -48,8 +56,7 @@ function displayBook(bookObj) {
     let item = document.createElement("p");
 
     item.classList.add(`${category}`);
-    item.innerText =
-      category[0].toUpperCase() + category.slice(1) + ": " + bookObj[category];
+    item.innerText = category.toUpperCase() + ": " + bookObj[category];
     bookElement.appendChild(item);
   }
 
@@ -57,9 +64,9 @@ function displayBook(bookObj) {
     let item = document.createElement("p");
     item.classList.add("read");
     if (bookObj["read"]) {
-      item.innerText = "Read: " + "read";
+      item.innerText = "READ: " + "read";
     } else {
-      item.innerText = "Read: " + "unread";
+      item.innerText = "READ: " + "unread";
     }
 
     bookElement.appendChild(item);
@@ -76,11 +83,12 @@ function displayBook(bookObj) {
 
     readToggleBtn.addEventListener("click", () => {
       bookObj.read = !bookObj.read;
+
       bookElement.parentElement.removeChild(bookElement);
       displayBook(bookObj);
     });
 
-    bookElement.appendChild(readToggleBtn);
+    btnContainer.appendChild(readToggleBtn);
   }
 
   function addDelBtn(bookElement) {
@@ -98,7 +106,7 @@ function displayBook(bookObj) {
       displayLibrary();
     });
 
-    bookElement.appendChild(delBtn);
+    btnContainer.appendChild(delBtn);
   }
   let bookElement = document.createElement("div");
   bookElement.classList.add("book");
@@ -108,11 +116,15 @@ function displayBook(bookObj) {
     createBookDetail(i);
   }
 
+  btnContainer = document.createElement("div");
+  btnContainer.classList.add("btn-container");
+
   createReadDetail();
   addReadToggleBtn(bookElement);
 
   addDelBtn(bookElement);
 
+  bookElement.appendChild(btnContainer);
   bookContainer.appendChild(bookElement);
 }
 
