@@ -1,4 +1,148 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--secondary-ff);
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Quattrocento&family=Quattrocento+Sans&display=swap");
+
+:root {
+  --header-ff: "Quattrocento", serif;
+  --secondary-ff: "Quattrocento Sans", sans-serif;
+  --body-bg-color: #eef2ff;
+  --header-bg-color: #4e5166;
+  --header-color: white;
+  --book-bg-color: #e0e7ff;
+  --book-color: #111;
+  --form-bg-color: #bae6fd;
+}
+
+body {
+  background-color: var(--body-bg-color);
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "main side"
+    "footer footer";
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto 1fr;
+}
+
+header {
+  background-color: #e0e7ff;
+  grid-area: header;
+  padding: 20px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+main {
+  grid-area: main;
+  margin: 20px;
+  border: 2px solid #075985;
+}
+
+aside {
+  padding: 20px;
+  grid-area: side;
+}
+
+/* header */
+h1 {
+  font-family: var(--header-ff);
+  font-size: 64px;
+  font-weight: 800;
+  color: #075985;
+}
+
+/* main */
+
+.book-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 300px);
+  gap: 20px;
+}
+.book {
+  margin: 20px;
+  background-color: var(--book-bg-color);
+  padding: 20px;
+  font-size: 24px;
+  border: 2px solid #075985;
+  border-radius: 10%;
+  color: #075985;
+  line-height: 1.5;
+}
+
+.btn-container {
+  margin-top: 1em;
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+}
+.del-btn,
+.read-toggle-btn {
+  width: 2em;
+  display: inline-block;
+  background-color: transparent;
+  padding: 10px;
+  font-size: 24px;
+  border-radius: 0;
+  color: #075985;
+  border: 2px solid #075985;
+}
+
+.del-btn:hover,
+.read-toggle-btn:hover {
+  background-color: #075985;
+  color: #bae6fd;
+}
+
+/* aside */
+.new-btn,
+.submit-btn {
+  padding: 5px 10px;
+  margin-bottom: 1em;
+  font-size: 20px;
+  color: #075985;
+  border: 2px solid #075985;
+  background-color: #bae6fd;
+  font-weight: 800;
+}
+
+.new-btn:hover,
+.submit-btn:hover {
+  background-color: #075985;
+  color: #bae6fd;
+}
+form {
+  width: 300px;
+  background-color: var(--form-bg-color);
+  color: #075985;
+  padding: 20px;
+  font-size: 20px;
+  border: 2px solid #075985;
+  line-height: 1.5;
+}
+
+label {
+  display: block;
+}
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+}
+.radio-choice {
+  display: inline-block;
+}
+.submit-btn {
+  margin: 0 30%;
+}
 .hide-form {
   height: 0;
   overflow: hidden;
+  padding: 0;
+}
+
+fieldset {
+  border: 0;
 }
