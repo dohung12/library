@@ -1,6 +1,26 @@
 const bookContainer = document.querySelector(".book-container");
+const newBookBtn = document.querySelector(".new-btn");
+const newBookForm = document.querySelector(".new-book-form");
+const submitBtn = document.querySelector(".submit-btn");
+
 let myLibrary = [];
 
+// EVENT LISTENER
+newBookBtn.addEventListener("click", addNewBook);
+
+submitBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  const bookTitle = document.querySelector('input[name="title"]').value;
+  const bookAuthor = document.querySelector('input[name="author"]').value;
+  const bookPages = document.querySelector('input[name="pages"]').value;
+  const bookReadStt = document.querySelector(
+    'input[name="read"]:checked'
+  ).value;
+
+  addBookToLibrary(bookTitle, bookAuthor, bookPages, bookReadStt);
+  displayLibrary();
+});
+// FUNCTIONS
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
@@ -62,6 +82,7 @@ function displayBook(bookObj) {
 
     bookElement.appendChild(readToggleBtn);
   }
+
   function addDelBtn(bookElement) {
     let delBtn = document.createElement("button");
     delBtn.setAttribute("class", "btn del-btn");
@@ -73,8 +94,8 @@ function displayBook(bookObj) {
 
     delBtn.addEventListener("click", () => {
       const index = bookElement.dataset.id;
-
       myLibrary.splice(index, 1);
+      displayLibrary();
     });
 
     bookElement.appendChild(delBtn);
@@ -93,4 +114,8 @@ function displayBook(bookObj) {
   addDelBtn(bookElement);
 
   bookContainer.appendChild(bookElement);
+}
+
+function addNewBook(e) {
+  newBookForm.classList.toggle("hide-form");
 }
