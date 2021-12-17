@@ -56,7 +56,9 @@ function displayBook(bookObj) {
     // create <p class="category"> CATEGORY: "XXXXX" </p>
     let item = document.createElement("p");
     item.classList.add(`${category}`);
-    item.innerText = category.toUpperCase() + ": " + bookObj[category];
+    item.innerHTML = `<strong>${category.toUpperCase()}</strong>: ${
+      bookObj[category]
+    }`;
     bookElement.appendChild(item);
   }
 
@@ -65,9 +67,9 @@ function displayBook(bookObj) {
     let item = document.createElement("p");
     item.classList.add("read");
     if (bookObj["read"]) {
-      item.innerText = "READ: " + "read";
+      item.innerHTML = "<strong>READ</strong>: read";
     } else {
-      item.innerText = "READ: " + "unread";
+      item.innerHTML = "<strong>READ</strong>: unread";
     }
 
     bookElement.appendChild(item);
