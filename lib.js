@@ -6,7 +6,7 @@ const submitBtn = document.querySelector(".submit-btn");
 let myLibrary = [];
 
 // EVENT LISTENER
-newBookBtn.addEventListener("click", addNewBook);
+newBookBtn.addEventListener("click", toggleFormDisplay);
 
 submitBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -109,6 +109,7 @@ function displayBook(bookObj) {
     btnContainer.appendChild(delBtn);
   }
 
+  // create the book's details
   let bookElement = document.createElement("div");
   bookElement.classList.add("book");
   bookElement.setAttribute("data-id", myLibrary.indexOf(bookObj));
@@ -117,18 +118,18 @@ function displayBook(bookObj) {
     createBookDetail(i);
   }
 
+  // create buttons
   btnContainer = document.createElement("div");
   btnContainer.classList.add("btn-container");
 
   createReadDetail();
   createReadToggleBtn(bookElement);
-
   createDelBtn(bookElement);
-
   bookElement.appendChild(btnContainer);
+
   bookContainer.appendChild(bookElement);
 }
 
-function addNewBook(e) {
+function toggleFormDisplay(e) {
   newBookForm.classList.toggle("hide-form");
 }
