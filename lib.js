@@ -53,14 +53,15 @@ function displayLibrary() {
 
 function displayBook(bookObj) {
   function createBookDetail(category) {
+    // create <p class="category"> CATEGORY: "XXXXX" </p>
     let item = document.createElement("p");
-
     item.classList.add(`${category}`);
     item.innerText = category.toUpperCase() + ": " + bookObj[category];
     bookElement.appendChild(item);
   }
 
   function createReadDetail() {
+    // create <p class="read"> READ: "XXXXX" </p>
     let item = document.createElement("p");
     item.classList.add("read");
     if (bookObj["read"]) {
@@ -72,7 +73,7 @@ function displayBook(bookObj) {
     bookElement.appendChild(item);
   }
 
-  function addReadToggleBtn(bookElement) {
+  function createReadToggleBtn(bookElement) {
     let readToggleBtn = document.createElement("button");
     readToggleBtn.setAttribute("class", "btn read-toggle-btn");
 
@@ -83,15 +84,14 @@ function displayBook(bookObj) {
 
     readToggleBtn.addEventListener("click", () => {
       bookObj.read = !bookObj.read;
-
-      bookElement.parentElement.removeChild(bookElement);
-      displayBook(bookObj);
+      displayLibrary();
     });
 
     btnContainer.appendChild(readToggleBtn);
   }
 
-  function addDelBtn(bookElement) {
+  function createDelBtn(bookElement) {
+    // create del button for every book
     let delBtn = document.createElement("button");
     delBtn.setAttribute("class", "btn del-btn");
 
@@ -108,6 +108,7 @@ function displayBook(bookObj) {
 
     btnContainer.appendChild(delBtn);
   }
+
   let bookElement = document.createElement("div");
   bookElement.classList.add("book");
   bookElement.setAttribute("data-id", myLibrary.indexOf(bookObj));
@@ -120,9 +121,9 @@ function displayBook(bookObj) {
   btnContainer.classList.add("btn-container");
 
   createReadDetail();
-  addReadToggleBtn(bookElement);
+  createReadToggleBtn(bookElement);
 
-  addDelBtn(bookElement);
+  createDelBtn(bookElement);
 
   bookElement.appendChild(btnContainer);
   bookContainer.appendChild(bookElement);
