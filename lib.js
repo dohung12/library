@@ -23,8 +23,14 @@ submitBtn.addEventListener("click", (e) => {
   const haveRead = document.querySelector('input[name="read"]:checked');
   detailsArr.push(haveRead.value);
   document.querySelector("#read-stt-1").checked = true;
-
-  addBookToLibrary(detailsArr[0], detailsArr[1], detailsArr[2], detailsArr[3]);
+  if (detailsArr.every((e) => e !== "")) {
+    addBookToLibrary(
+      detailsArr[0],
+      detailsArr[1],
+      detailsArr[2],
+      detailsArr[3]
+    );
+  }
 });
 // FUNCTIONS
 
@@ -72,7 +78,8 @@ function displayBook(bookObj) {
     // create <p class="read"> READ: "XXXXX" </p>
     let item = document.createElement("p");
     item.classList.add("read");
-    if (bookObj["read"]) {
+
+    if (bookObj.haveRead === "true") {
       item.innerHTML = "<strong>READ</strong>: read";
     } else {
       item.innerHTML = "<strong>READ</strong>: unread";
@@ -91,9 +98,9 @@ function displayBook(bookObj) {
     readToggleBtn.appendChild(icon);
 
     readToggleBtn.addEventListener("click", () => {
-      bookObj.read = !bookObj.read;
+      bookObj.toggleReadStatus();
       const item = bookElement.querySelector(".read");
-      if (bookObj["read"]) {
+      if (bookObj["haveRead"]) {
         item.innerHTML = "<strong>READ</strong>: read";
       } else {
         item.innerHTML = "<strong>READ</strong>: unread";
@@ -137,6 +144,7 @@ function displayBook(bookObj) {
 
   createReadDetail();
   createReadToggleBtn(bookElement);
+
   createDelBtn(bookElement);
   bookElement.appendChild(btnContainer);
 
