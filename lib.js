@@ -92,7 +92,12 @@ function displayBook(bookObj) {
 
     readToggleBtn.addEventListener("click", () => {
       bookObj.read = !bookObj.read;
-      displayLibrary();
+      const item = bookElement.querySelector(".read");
+      if (bookObj["read"]) {
+        item.innerHTML = "<strong>READ</strong>: read";
+      } else {
+        item.innerHTML = "<strong>READ</strong>: unread";
+      }
     });
 
     btnContainer.appendChild(readToggleBtn);
