@@ -1,3 +1,4 @@
+"use  strict";
 const bookContainer = document.querySelector(".book-container");
 const newBookBtn = document.querySelector(".new-btn");
 const newBookForm = document.querySelector(".new-book-form");
@@ -10,38 +11,43 @@ newBookBtn.addEventListener("click", toggleFormDisplay);
 
 submitBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  const bookTitle = document.querySelector('input[name="title"]');
-  const bookAuthor = document.querySelector('input[name="author"]');
-  const bookPages = document.querySelector('input[name="pages"]');
-  const bookReadStt = document.querySelector('input[name="read"]:checked');
 
-  addBookToLibrary(
-    bookTitle.value,
-    bookAuthor.value,
-    bookPages.value,
-    bookReadStt.value
-  );
-  displayLibrary();
-  //remove text in input box after press submit, back to placeholder value
-  bookTitle.value = "";
-  bookAuthor.value = "";
-  bookPages.value = "";
+  let detailsArr = [];
+
+  for (let i of ["title", "author", "pages"]) {
+    const category = document.querySelector(`input[name=${i}]`);
+    detailsArr.push(category.value);
+    category.value = "";
+  }
+
+  const haveRead = document.querySelector('input[name="read"]:checked');
+  detailsArr.push(haveRead.value);
   document.querySelector("#read-stt-1").checked = true;
+
+  addBookToLibrary(detailsArr[0], detailsArr[1], detailsArr[2], detailsArr[3]);
 });
 // FUNCTIONS
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.info = function () {
+
+class Book {
+  constructor(title, author, pages, haveRead) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.haveRead = haveRead;
+  }
+
+  toggleReadStatus() {
+    this.haveRead = !this.haveRead;
+  }
+  get info() {
     return `${this.title} by ${this.author}, ${this.pages}, ${this.read}`;
-  };
+  }
 }
 
 function addBookToLibrary(title, author, pages, read) {
   const book = new Book(title, author, pages, read);
   myLibrary.push(book);
+  displayBook(book);
 }
 
 function displayLibrary() {
