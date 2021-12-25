@@ -1,10 +1,11 @@
-"use  strict";
+import "./style.css";
+
 const bookContainer = document.querySelector(".book-container");
 const newBookBtn = document.querySelector(".new-btn");
 const newBookForm = document.querySelector(".new-book-form");
 const submitBtn = document.querySelector(".submit-btn");
 
-let myLibrary = [];
+const myLibrary = [];
 
 // EVENT LISTENER
 newBookBtn.addEventListener("click", toggleFormDisplay);
@@ -12,9 +13,9 @@ newBookBtn.addEventListener("click", toggleFormDisplay);
 submitBtn.addEventListener("click", (e) => {
   e.preventDefault();
 
-  let detailsArr = [];
+  const detailsArr = [];
 
-  for (let i of ["title", "author", "pages"]) {
+  for (const i of ["title", "author", "pages"]) {
     const category = document.querySelector(`input[name=${i}]`);
     detailsArr.push(category.value);
     category.value = "";
@@ -45,6 +46,7 @@ class Book {
   toggleReadStatus() {
     this.haveRead = !this.haveRead;
   }
+
   get info() {
     return `${this.title} by ${this.author}, ${this.pages}, ${this.read}`;
   }
@@ -58,7 +60,7 @@ function addBookToLibrary(title, author, pages, read) {
 
 function displayLibrary() {
   bookContainer.innerHTML = "";
-  for (let book of myLibrary) {
+  for (const book of myLibrary) {
     displayBook(book);
   }
 }
@@ -66,7 +68,7 @@ function displayLibrary() {
 function displayBook(bookObj) {
   function createBookDetail(category) {
     // create <p class="category"> CATEGORY: "XXXXX" </p>
-    let item = document.createElement("p");
+    const item = document.createElement("p");
     item.classList.add(`${category}`);
     item.innerHTML = `<strong>${category.toUpperCase()}</strong>: ${
       bookObj[category]
@@ -76,7 +78,7 @@ function displayBook(bookObj) {
 
   function createReadDetail() {
     // create <p class="read"> READ: "XXXXX" </p>
-    let item = document.createElement("p");
+    const item = document.createElement("p");
     item.classList.add("read");
 
     if (bookObj.haveRead === "true") {
@@ -89,10 +91,10 @@ function displayBook(bookObj) {
   }
 
   function createReadToggleBtn(bookElement) {
-    let readToggleBtn = document.createElement("button");
+    const readToggleBtn = document.createElement("button");
     readToggleBtn.setAttribute("class", "btn read-toggle-btn");
 
-    let icon = document.createElement("i");
+    const icon = document.createElement("i");
     icon.setAttribute("class", "fas fa-book-open");
 
     readToggleBtn.appendChild(icon);
@@ -100,7 +102,7 @@ function displayBook(bookObj) {
     readToggleBtn.addEventListener("click", () => {
       bookObj.toggleReadStatus();
       const item = bookElement.querySelector(".read");
-      if (bookObj["haveRead"]) {
+      if (bookObj.haveRead) {
         item.innerHTML = "<strong>READ</strong>: read";
       } else {
         item.innerHTML = "<strong>READ</strong>: unread";
@@ -112,10 +114,10 @@ function displayBook(bookObj) {
 
   function createDelBtn(bookElement) {
     // create del button for every book
-    let delBtn = document.createElement("button");
+    const delBtn = document.createElement("button");
     delBtn.setAttribute("class", "btn del-btn");
 
-    let icon = document.createElement("i");
+    const icon = document.createElement("i");
     icon.setAttribute("class", "fas fa-trash");
 
     delBtn.appendChild(icon);
@@ -134,7 +136,7 @@ function displayBook(bookObj) {
   bookElement.classList.add("book");
   bookElement.setAttribute("data-id", myLibrary.indexOf(bookObj));
 
-  for (let i of ["title", "author", "pages"]) {
+  for (const i of ["title", "author", "pages"]) {
     createBookDetail(i);
   }
 
