@@ -1,10 +1,13 @@
-"use  strict";
+/* eslint-disable no-use-before-define */
+import "./style.css";
+import Book from "./book-class";
+
 const bookContainer = document.querySelector(".book-container");
 const newBookBtn = document.querySelector(".new-btn");
 const newBookForm = document.querySelector(".new-book-form");
 const submitBtn = document.querySelector(".submit-btn");
 
-let myLibrary = [];
+const myLibrary = [];
 
 // EVENT LISTENER
 newBookBtn.addEventListener("click", toggleFormDisplay);
@@ -12,18 +15,17 @@ newBookBtn.addEventListener("click", toggleFormDisplay);
 submitBtn.addEventListener("click", (e) => {
   e.preventDefault();
 
-  let detailsArr = [];
-
-  for (let i of ["title", "author", "pages"]) {
-    const category = document.querySelector(`input[name=${i}]`);
+  const detailsArr = [];
+  ["title", "author", "pages"].forEach((element) => {
+    const category = document.querySelector(`input[name=${element}]`);
     detailsArr.push(category.value);
     category.value = "";
-  }
+  });
 
   const haveRead = document.querySelector('input[name="read"]:checked');
   detailsArr.push(haveRead.value);
   document.querySelector("#read-stt-1").checked = true;
-  if (detailsArr.every((e) => e !== "")) {
+  if (detailsArr.every((element) => element !== "")) {
     addBookToLibrary(
       detailsArr[0],
       detailsArr[1],
@@ -34,22 +36,6 @@ submitBtn.addEventListener("click", (e) => {
 });
 // FUNCTIONS
 
-class Book {
-  constructor(title, author, pages, haveRead) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.haveRead = haveRead;
-  }
-
-  toggleReadStatus() {
-    this.haveRead = !this.haveRead;
-  }
-  get info() {
-    return `${this.title} by ${this.author}, ${this.pages}, ${this.read}`;
-  }
-}
-
 function addBookToLibrary(title, author, pages, read) {
   const book = new Book(title, author, pages, read);
   myLibrary.push(book);
@@ -58,15 +44,13 @@ function addBookToLibrary(title, author, pages, read) {
 
 function displayLibrary() {
   bookContainer.innerHTML = "";
-  for (let book of myLibrary) {
-    displayBook(book);
-  }
+  myLibrary.forEach((book) => displayBook(book));
 }
 
 function displayBook(bookObj) {
   function createBookDetail(category) {
     // create <p class="category"> CATEGORY: "XXXXX" </p>
-    let item = document.createElement("p");
+    const item = document.createElement("p");
     item.classList.add(`${category}`);
     item.innerHTML = `<strong>${category.toUpperCase()}</strong>: ${
       bookObj[category]
@@ -76,7 +60,7 @@ function displayBook(bookObj) {
 
   function createReadDetail() {
     // create <p class="read"> READ: "XXXXX" </p>
-    let item = document.createElement("p");
+    const item = document.createElement("p");
     item.classList.add("read");
 
     if (bookObj.haveRead === "true") {
@@ -89,10 +73,10 @@ function displayBook(bookObj) {
   }
 
   function createReadToggleBtn(bookElement) {
-    let readToggleBtn = document.createElement("button");
+    const readToggleBtn = document.createElement("button");
     readToggleBtn.setAttribute("class", "btn read-toggle-btn");
 
-    let icon = document.createElement("i");
+    const icon = document.createElement("i");
     icon.setAttribute("class", "fas fa-book-open");
 
     readToggleBtn.appendChild(icon);
@@ -100,7 +84,7 @@ function displayBook(bookObj) {
     readToggleBtn.addEventListener("click", () => {
       bookObj.toggleReadStatus();
       const item = bookElement.querySelector(".read");
-      if (bookObj["haveRead"]) {
+      if (bookObj.haveRead) {
         item.innerHTML = "<strong>READ</strong>: read";
       } else {
         item.innerHTML = "<strong>READ</strong>: unread";
@@ -112,10 +96,10 @@ function displayBook(bookObj) {
 
   function createDelBtn(bookElement) {
     // create del button for every book
-    let delBtn = document.createElement("button");
+    const delBtn = document.createElement("button");
     delBtn.setAttribute("class", "btn del-btn");
 
-    let icon = document.createElement("i");
+    const icon = document.createElement("i");
     icon.setAttribute("class", "fas fa-trash");
 
     delBtn.appendChild(icon);
@@ -134,12 +118,12 @@ function displayBook(bookObj) {
   bookElement.classList.add("book");
   bookElement.setAttribute("data-id", myLibrary.indexOf(bookObj));
 
-  for (let i of ["title", "author", "pages"]) {
-    createBookDetail(i);
-  }
+  ["title", "author", "pages"].forEach((element) => {
+    createBookDetail(element);
+  });
 
   // create buttons
-  btnContainer = document.createElement("div");
+  const btnContainer = document.createElement("div");
   btnContainer.classList.add("btn-container");
 
   createReadDetail();
@@ -151,6 +135,6 @@ function displayBook(bookObj) {
   bookContainer.appendChild(bookElement);
 }
 
-function toggleFormDisplay(e) {
+function toggleFormDisplay() {
   newBookForm.classList.toggle("hide-form");
 }
