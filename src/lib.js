@@ -1,4 +1,5 @@
 import "./style.css";
+import Book from "./book-class";
 
 const bookContainer = document.querySelector(".book-container");
 const newBookBtn = document.querySelector(".new-btn");
@@ -35,23 +36,6 @@ submitBtn.addEventListener("click", (e) => {
 });
 // FUNCTIONS
 
-class Book {
-  constructor(title, author, pages, haveRead) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.haveRead = haveRead;
-  }
-
-  toggleReadStatus() {
-    this.haveRead = !this.haveRead;
-  }
-
-  get info() {
-    return `${this.title} by ${this.author}, ${this.pages}, ${this.read}`;
-  }
-}
-
 function addBookToLibrary(title, author, pages, read) {
   const book = new Book(title, author, pages, read);
   myLibrary.push(book);
@@ -60,9 +44,7 @@ function addBookToLibrary(title, author, pages, read) {
 
 function displayLibrary() {
   bookContainer.innerHTML = "";
-  for (const book of myLibrary) {
-    displayBook(book);
-  }
+  myLibrary.forEach((book) => displayBook(book));
 }
 
 function displayBook(bookObj) {
@@ -141,7 +123,7 @@ function displayBook(bookObj) {
   }
 
   // create buttons
-  btnContainer = document.createElement("div");
+  const btnContainer = document.createElement("div");
   btnContainer.classList.add("btn-container");
 
   createReadDetail();
