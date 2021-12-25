@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import "./style.css";
 import Book from "./book-class";
 
@@ -15,17 +16,16 @@ submitBtn.addEventListener("click", (e) => {
   e.preventDefault();
 
   const detailsArr = [];
-
-  for (const i of ["title", "author", "pages"]) {
-    const category = document.querySelector(`input[name=${i}]`);
+  ["title", "author", "pages"].forEach((element) => {
+    const category = document.querySelector(`input[name=${element}]`);
     detailsArr.push(category.value);
     category.value = "";
-  }
+  });
 
   const haveRead = document.querySelector('input[name="read"]:checked');
   detailsArr.push(haveRead.value);
   document.querySelector("#read-stt-1").checked = true;
-  if (detailsArr.every((e) => e !== "")) {
+  if (detailsArr.every((element) => element !== "")) {
     addBookToLibrary(
       detailsArr[0],
       detailsArr[1],
@@ -118,9 +118,9 @@ function displayBook(bookObj) {
   bookElement.classList.add("book");
   bookElement.setAttribute("data-id", myLibrary.indexOf(bookObj));
 
-  for (const i of ["title", "author", "pages"]) {
-    createBookDetail(i);
-  }
+  ["title", "author", "pages"].forEach((element) => {
+    createBookDetail(element);
+  });
 
   // create buttons
   const btnContainer = document.createElement("div");
@@ -135,6 +135,6 @@ function displayBook(bookObj) {
   bookContainer.appendChild(bookElement);
 }
 
-function toggleFormDisplay(e) {
+function toggleFormDisplay() {
   newBookForm.classList.toggle("hide-form");
 }
