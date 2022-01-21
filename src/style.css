@@ -5,11 +5,11 @@
   font-family: var(--secondary-ff);
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Roboto&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Roboto&display=swap');
 
 :root {
-  --header-ff: "Libre Baskerville", serif;
-  --secondary-ff: "Roboto", sans-serif;
+  --header-ff: 'Libre Baskerville', serif;
+  --secondary-ff: 'Roboto', sans-serif;
   --body-bg-color: #eef2ff;
   --header-bg-color: #4e5166;
   --header-color: white;
@@ -22,9 +22,9 @@ body {
   background-color: var(--body-bg-color);
   display: grid;
   grid-template-areas:
-    "header header"
-    "main side"
-    "footer footer";
+    'header header'
+    'main side'
+    'footer footer';
   grid-template-columns: 1fr auto;
   grid-template-rows: auto 1fr;
 }
@@ -48,11 +48,36 @@ aside {
 }
 
 /* header */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 h1 {
   font-family: var(--header-ff);
   font-size: 64px;
   font-weight: 800;
   color: #075985;
+}
+
+.sign-in,
+.sign-out {
+  background-color: cornflowerblue;
+  padding: 1rem;
+  font-weight: bold;
+  color: white;
+  border-radius: 25px;
+}
+
+.user-information {
+  display: flex;
+  gap: 1rem;
+}
+
+.user-pic {
+  width: 50px;
+  border-radius: 50%;
 }
 
 /* main */
@@ -129,8 +154,8 @@ form {
 label {
   display: block;
 }
-input[type="text"],
-input[type="number"] {
+input[type='text'],
+input[type='number'] {
   width: 100%;
 }
 .radio-choice {
