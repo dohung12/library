@@ -1,20 +1,22 @@
 /* eslint-disable no-use-before-define */
+
 import './style.css'
 import Book from './book-class'
 import { displayBook } from './displayController'
 
-const newBookBtn = document.querySelector('.new-btn')
 const newBookForm = document.querySelector('.new-book-form')
-const submitBtn = document.querySelector('.submit-btn')
 
 const myLibrary = []
 
-// EVENT LISTENER
+// toggle form display
+const newBookBtn = document.querySelector('.new-btn')
 newBookBtn.addEventListener('click', toggleFormDisplay)
+function toggleFormDisplay() {
+  newBookForm.classList.toggle('hide-form')
+}
 
-submitBtn.addEventListener('click', submitHandle)
-// FUNCTIONS
-
+// form controller
+const submitBtn = document.querySelector('.submit-btn')
 function submitHandle(e) {
   e.preventDefault()
 
@@ -32,13 +34,10 @@ function submitHandle(e) {
     addBookToLibrary(detailsArr[0], detailsArr[1], detailsArr[2], detailsArr[3])
   }
 }
+submitBtn.addEventListener('click', submitHandle)
 
 function addBookToLibrary(title, author, pages, read) {
   const book = new Book(title, author, pages, read)
   myLibrary.push(book)
   displayBook(book)
-}
-
-function toggleFormDisplay() {
-  newBookForm.classList.toggle('hide-form')
 }
